@@ -179,3 +179,25 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+```gitignore
+# Python
+*.pyc
+*.pyo
+*.pyd
+
+# Ambiente virtual
+.env.*
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Dash cache
+.cache/
+
+# Arquivos locais
+config.py

@@ -1,2 +1,24 @@
-# Auto detect text files and perform LF normalization
+# Normalização de linha
 * text=auto
+
+# Python
+*.py text diff=python
+
+# Markdown
+*.md text
+
+# SQL
+*.sql text
+
+# CSS
+*.css text
+
+# Imagens
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+# Ignorar conflitos automáticos em lockfiles
+*.lock -merge
+
