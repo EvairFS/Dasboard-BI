@@ -58,12 +58,21 @@ app.layout = dbc.Container([
 
             # GRÁFICOS
             dbc.Row([
-                dbc.Col(dcc.Graph(id="bar"), width=12)
+                dbc.Col(
+                    html.Div(dcc.Graph(id="bar"), className="graph-card"),
+                    width=12
+                )
             ]),
 
             dbc.Row([
-                dbc.Col(dcc.Graph(id="line"), width=6),
-                dbc.Col(dcc.Graph(id="pie"), width=6)
+                dbc.Col(
+                    html.Div(dcc.Graph(id="line"), className="graph-card"),
+                    width=6
+                ),
+                dbc.Col(
+                    html.Div(dcc.Graph(id="pie"), className="graph-card"),
+                    width=6
+                )
             ])
 
         ], width=10)
