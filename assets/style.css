@@ -1,7 +1,43 @@
-.kpi {
-    background:#1f2933;
-    color:white;
-    padding:20px;
-    border-radius:8px;
-    font-size:20px;
+body {
+    background-color: #061c2c;
+}
+
+/* Cards KPI */
+.kpi-card {
+    background-color: #062a3d;
+    border: 1px solid #1cc7b8;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+}
+
+.kpi-title {
+    color: #8adad2;
+    font-size: 14px;
+}
+
+.kpi-value {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #05202f;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar-title {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Containers de gráfico */
+.graph-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
 }

@@ -1,43 +1,76 @@
+import dash_bootstrap_components as dbc
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 import plotly.express as px
 from utils.db_connection import get_data
 
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__,
+    external_stylesheets=[dbc.themes.CYBORG]
+)
+
 app.title = "Dashboard BI"
 
-app.layout = html.Div([
+app.layout = dbc.Container([
 
-    html.H1("Dashboard BI - Vendas"),
+    dcc.Interval(id="refresh", interval=5000),
+    dcc.DatePickerRange(id="datas"),
 
-    html.Div([
-        dcc.Dropdown(
-            id="produto",
-            placeholder="Filtrar produto",
-            clearable=True
-        ),
+    dbc.Row([
 
-        dcc.DatePickerRange(id="datas")
+        # SIDEBAR
+        dbc.Col([
+            html.Div([
+                html.H3("DASHBOARD", className="sidebar-title"),
+                html.H5("FINANCEIRO", className="sidebar-title"),
+                html.Hr(),
 
-    ], style={"width":"50%"}),
+                html.P("Competência"),
+                dcc.Dropdown(
+                    id="produto",
+                    placeholder="Todos"
+                )
 
-    html.Div(id="kpis", style={
-        "display":"flex",
-        "justify-content":"space-around",
-        "margin":"20px"
-    }),
+            ], className="sidebar")
+        ], width=2),
 
-    dcc.Graph(id="bar"),
-    dcc.Graph(id="line"),
-    dcc.Graph(id="pie"),
+        # CONTEÚDO PRINCIPAL
+        dbc.Col([
 
-    dcc.Interval(
-        id="refresh",
-        interval=5000,
-        n_intervals=0
-    )
-])
+            # KPIs
+            dbc.Row([
+                dbc.Col(html.Div([
+                    html.Div("Total de Receitas", className="kpi-title"),
+                    html.Div(id="kpi1", className="kpi-value")
+                ], className="kpi-card")),
+
+                dbc.Col(html.Div([
+                    html.Div("CMV", className="kpi-title"),
+                    html.Div(id="kpi2", className="kpi-value")
+                ], className="kpi-card")),
+
+                dbc.Col(html.Div([
+                    html.Div("Lucro Bruto", className="kpi-title"),
+                    html.Div(id="kpi3", className="kpi-value")
+                ], className="kpi-card")),
+            ], className="mb-4"),
+
+            # GRÁFICOS
+            dbc.Row([
+                dbc.Col(dcc.Graph(id="bar"), width=12)
+            ]),
+
+            dbc.Row([
+                dbc.Col(dcc.Graph(id="line"), width=6),
+                dbc.Col(dcc.Graph(id="pie"), width=6)
+            ])
+
+        ], width=10)
+
+    ])
+
+], fluid=True)
 
 # Popular dropdown
 @app.callback(
@@ -53,7 +86,9 @@ def load_products(n):
     Output("bar","figure"),
     Output("line","figure"),
     Output("pie","figure"),
-    Output("kpis","children"),
+    Output("kpi1", "children"),
+    Output("kpi2", "children"),
+    Output("kpi3", "children"),
     Input("produto","value"),
     Input("datas","start_date"),
     Input("datas","end_date"),
@@ -71,13 +106,11 @@ def update(produto, start, end, n):
     faturamento = df["valor"].sum()
     produtos = df["produto"].nunique()
 
-    kpis = [
-        html.Div(f"Total Vendas: {total_vendas}", className="kpi"),
-        html.Div(f"Produtos: {produtos}", className="kpi"),
-        html.Div(f"Faturamento: R$ {faturamento:,.2f}", className="kpi")
-    ]
+    kpi1 = f"Total Vendas: {total_vendas}"
+    kpi2 = f"Produtos: {produtos}"
+    kpi3 = f"Faturamento: R$ {faturamento:,.2f}"
 
-    return fig_bar, fig_line, fig_pie, kpis
+    return fig_bar, fig_line, fig_pie, kpi1, kpi2, kpi3
 
 if __name__ == "__main__":
     app.run(debug=True)
