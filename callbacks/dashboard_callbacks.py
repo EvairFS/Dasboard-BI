@@ -1,9 +1,10 @@
 from dash.dependencies import Input, Output
 import plotly.express as px
 
-from app import app
-from utils.db_connection import get_data
+from app_instance import app
+from utils.data_source import get_data
 from services.kpi_service import periodo_anterior, variacao
+
 
 @app.callback(
     Output("produto","options"),

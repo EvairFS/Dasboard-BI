@@ -1,5 +1,10 @@
 from sqlalchemy import create_engine
 import pandas as pd
+from utils.cache import cache
+
+@cache.memoize()
+def get_data(produto=None, inicio=None, fim=None):
+    ...
 
 engine = create_engine(
     "postgresql://postgres:123456@localhost:5432/dashboard_bi"
@@ -25,5 +30,6 @@ def get_data(produto=None, start_date=None, end_date=None):
 
     if start_date and end_date:
         df = df[(df["data"] >= start_date) & (df["data"] <= end_date)]
+
 
     return df
