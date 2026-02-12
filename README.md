@@ -168,7 +168,7 @@ Drill-down (clique no gráfico para detalhar)
 
 📷 Prints do Sistema
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 👨‍💻 Autor
 
