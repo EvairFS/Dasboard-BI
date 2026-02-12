@@ -52,6 +52,29 @@ def update(produto, start, end, n):
 
     for fig in (fig_bar, fig_line, fig_pie):
         fig.update_layout(
+            template="plotly_dark",
+
+            font=dict(
+                color="white",
+                size=14
+            ),
+
+            xaxis=dict(
+                title_font=dict(color="white"),
+                tickfont=dict(color="white"),
+                gridcolor="rgba(255,255,255,0.15)"
+            ),
+
+            yaxis=dict(
+                title_font=dict(color="white"),
+                tickfont=dict(color="white"),
+                gridcolor="rgba(255,255,255,0.15)"
+            ),
+
+            legend=dict(
+                font=dict(color="white")
+            ),
+
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)"
         )
